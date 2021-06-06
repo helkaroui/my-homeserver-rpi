@@ -1,0 +1,9 @@
+---
+roles:
+  - name: nginxinc.nginx
+
+collections:
+  - name: community.general
+    version: 3.0.0
+  - name: ansible.posix
+    version: 1.2.0

@@ -1,0 +1,21 @@
+---
+
+- name: updating hostname {{ SYSTEM_HOSTNAME }} (1/2)
+  hostname:
+    name: "{{ SYSTEM_HOSTNAME }}"
+  register: hostname_change
+
+- name: updating hostname {{ SYSTEM_HOSTNAME }} (2/2)
+  copy:
+    content: "{{ SYSTEM_HOSTNAME }}{{'\n'}}"
+    dest: /etc/hostname
+    backup: true
+  register: hostname_change
+
+- name: update /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^127\.0\.0\.1'
+    line: "127.0.0.1{{'\t'}}{{ SYSTEM_HOSTNAME }}"
+    backup: true
+    state: present
